@@ -101,7 +101,8 @@ if __name__ == "__main__":
     demo = VisualizationDemo(cfg)
 
     if len(args.input) == 1:
-        args.input = glob.glob(os.path.expanduser(args.input[0]))
+        args.input = glob.glob(args.input[0] + "/*")
+        # args.input = glob.glob(os.path.expanduser(args.input[0]))
         assert args.input, "The input path(s) was not found"
     for path in tqdm.tqdm(args.input, disable=not args.output):
         # use PIL, to be consistent with evaluation
@@ -121,7 +122,7 @@ if __name__ == "__main__":
         ##### color_mask
         pred_masks = predictions["instances"].pred_masks
         pred_scores = predictions["instances"].scores
-        
+
         # select by confidence threshold
         selected_indexes = (pred_scores >= args.confidence_threshold)
         selected_scores = pred_scores[selected_indexes]
@@ -134,6 +135,9 @@ if __name__ == "__main__":
         ranks = ranks + 1
         for index in ranks:
             mask_id[(selected_masks[index-1]==1).cpu().numpy()] = int(index)
+        cv2.imwrite(os.path.splitext(os.path.join(args.output, os.path.basename(path)))[0] + ".png", mask_id)
+        continue
+        breakpoint()
         unique_mask_id = np.unique(mask_id)
 
         color_mask = np.zeros(img.shape, dtype=np.uint8)
@@ -141,7 +145,7 @@ if __name__ == "__main__":
             if count == 0:
                 continue
             color_mask[mask_id==count] = colors[count]
-        
+
         vis_mask = np.concatenate((img, color_mask), axis=0)
 
         if args.output:

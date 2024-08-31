@@ -25,7 +25,7 @@ MODEL:
     DROP_PATH_RATE: 0.3
     PATCH_NORM: True
     PRETRAIN_IMG_SIZE: 384
-  WEIGHTS: "hornet_l_pretrained.pth"
+  WEIGHTS: "/home/tiger/model/Adobe_EntitySeg/CropFormer_model/Entity_Segmentation/CropFormer_hornet_3x/CropFormer_hornet_3x_03823a.pth"
   META_ARCHITECTURE: "CropFormer"
   SEM_SEG_HEAD:
     NAME: "MaskFormerHead"

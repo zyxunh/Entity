@@ -2,7 +2,7 @@
 import os
 
 from detectron2.data import DatasetCatalog, MetadataCatalog
-import mmcv
+# import mmcv
 
 ENTITYV2_SEMSEG150_CATEGORIES = [
 {'name': 'sky', 'id': 0},
