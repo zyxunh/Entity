@@ -19,7 +19,7 @@ MODEL:
     PATCH_NORM: True
     PRETRAIN_IMG_SIZE: 384
   META_ARCHITECTURE: "MaskFormer"
-  WEIGHTS: "entityv2_50ep_with_coco_same_epoch_swinlarge_w7_model_final.pth"
+  WEIGHTS: "/data/yixing/model/entity_seg/Mask2Former_swin_large_w7_3x_dd4543.pth"
   SEM_SEG_HEAD:
     NAME: "MaskFormerHead"
     IGNORE_VALUE: 255

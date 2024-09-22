@@ -14,7 +14,7 @@ MODEL:
   PIXEL_MEAN: [123.675, 116.28, 103.53]
   PIXEL_STD: [58.395, 57.120, 57.375]
   META_ARCHITECTURE: "MaskFormer"
-  WEIGHTS: "hornet_l_pretrained.pth"
+  WEIGHTS: "/data/yixing/model/entity_seg/Mask2Former_hornet_3x_576d0b.pth"
   SEM_SEG_HEAD:
     NAME: "MaskFormerHead"
     IGNORE_VALUE: 255
