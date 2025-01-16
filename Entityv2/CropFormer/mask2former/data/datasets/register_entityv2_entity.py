@@ -686,6 +686,14 @@ _PREDEFINED_SPLITS = {
         "entityseg/images_lr",
         "entityseg/annotations/entity_segmentation/entityv2_010203_entity_val_lr.json"
     ),
+    "custom_entity_train_lr": (
+        "/home/zhuyixing/datasets/Adobe_EntitySeg/images_lr",
+        "/home/zhuyixing/datasets/Adobe_EntitySeg/raw_label_lr/entityseg_train_lr.json"
+    ),
+    "custom_entityv2_entity_val_all_lr": (
+        "/home/zhuyixing/datasets/Adobe_EntitySeg/images_lr",
+        "/home/zhuyixing/datasets/Adobe_EntitySeg/raw_label_lr/entityseg_val_lr.json"
+    ),
 }
 
 _PREDEFINED_SPLITS_COCO = {}

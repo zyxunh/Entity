@@ -3,7 +3,7 @@ MODEL:
   BACKBONE:
     NAME: "D2SwinTransformer"
   META_ARCHITECTURE: "MaskFormer"
-  WEIGHTS: "entityv2_50ep_with_coco_same_epoch_swinlarge_w7_model_final.pth"
+  WEIGHTS: "/home/yixing/model/Adobe_EntitySeg/CropFormer_model/Panoptic_Segmentation/Mask2Former_Swin_Large_w12/model_final.pth"
   SWIN:
     EMBED_DIM: 192
     DEPTHS: [2, 2, 18, 2]
@@ -49,7 +49,7 @@ MODEL:
     OVERSAMPLE_RATIO: 3.0
     IMPORTANCE_SAMPLE_RATIO: 0.75
     TEST:
-      SEMANTIC_ON: False
+      SEMANTIC_ON: True
       INSTANCE_ON: False
       PANOPTIC_ON: True
       OVERLAP_THRESHOLD: 0.8

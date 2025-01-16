@@ -10,9 +10,12 @@ import sys
 
 from unhcv.common import get_related_path, write_im
 from unhcv.common.array import chunk, split
+from unhcv.common.image import gray2color
 from unhcv.common.utils import walk_all_files_with_suffix, ProgressBarTqdm, obj_dump
 
-sys.path.insert(1, os.path.join(sys.path[0], '..'))
+__path__ = os.path.dirname(__file__)
+sys.path.insert(1, os.path.join(__path__, '..'))
+sys.path.insert(1, os.path.join(__path__))
 # fmt: on
 
 import tempfile
@@ -148,6 +151,8 @@ def main(mp_idx=0, mp_num=1, args=None, **kwargs):
                     print(f'!!!!!{path} exceed 255')
                 write_im(name_mask, mask_id)
                 write_im(name_score, (selected_masks_with_score_max * 255).round().cpu().numpy())
+                breakpoint()
+                write_im(name_mask, gray2color(mask_id))
                 # obj_dump(get_related_path(path, args.input, args.output, suffixs='.bson'), dict(selected_scores=selected_scores))
                 # show = visual_mask(img, mask_id)[-1]
                 # write_im(get_related_path(path, args.input, args.output + "_show", suffixs='.jpg'), show)

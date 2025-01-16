@@ -12,6 +12,8 @@ from detectron2.modeling.backbone import Backbone
 from detectron2.modeling.postprocessing import sem_seg_postprocess
 from detectron2.structures import Boxes, ImageList, Instances, BitMasks
 from detectron2.utils.memory import retry_if_cuda_oom
+from unhcv.common import visual_mask
+from unhcv.common.image import gray2color
 
 from .modeling.criterion import SetCriterion
 from .modeling.matcher import HungarianMatcher
@@ -262,12 +264,13 @@ class MaskFormer(nn.Module):
                     processed_results[-1]["panoptic_seg"] = panoptic_r
                 
                 # instance segmentation and entity segmentation inference
-                if self.instance_on and self.cfg.ENTITY.ENABLE:
-                    instance_r = retry_if_cuda_oom(self.instance_inference_nonoverlap)(mask_cls_result, mask_pred_result)
-                    processed_results[-1]["instances"] = instance_r
-                else:
-                    instance_r = retry_if_cuda_oom(self.instance_inference)(mask_cls_result, mask_pred_result)
-                    processed_results[-1]["instances"] = instance_r
+                if self.instance_on:
+                    if self.cfg.ENTITY.ENABLE:
+                        instance_r = retry_if_cuda_oom(self.instance_inference_nonoverlap)(mask_cls_result, mask_pred_result)
+                        processed_results[-1]["instances"] = instance_r
+                    else:
+                        instance_r = retry_if_cuda_oom(self.instance_inference)(mask_cls_result, mask_pred_result)
+                        processed_results[-1]["instances"] = instance_r
 
             return processed_results
 
@@ -321,6 +324,7 @@ class MaskFormer(nn.Module):
             stuff_memory_list = {}
             for k in range(cur_classes.shape[0]):
                 pred_class = cur_classes[k].item()
+                pred_score = cur_scores[k].item()
                 isthing = pred_class in self.metadata.thing_dataset_id_to_contiguous_id.values()
                 mask_area = (cur_mask_ids == k).sum().item()
                 original_area = (cur_masks[k] >= 0.5).sum().item()
@@ -346,6 +350,8 @@ class MaskFormer(nn.Module):
                             "id": current_segment_id,
                             "isthing": bool(isthing),
                             "category_id": int(pred_class),
+                            "pred_score": float(pred_score),
+                            "overlap": float(mask_area / original_area)
                         }
                     )
 

@@ -6,7 +6,7 @@ MODEL:
   BACKBONE:
     NAME: "D2SwinTransformer"
   META_ARCHITECTURE: "MaskFormer"
-  WEIGHTS: "entityv2_50ep_with_coco_same_epoch_swinlarge_w7_model_final.pth"
+  WEIGHTS: "/XYFS01/sysu_qingzhang_1/model/Adobe_EntitySeg/CropFormer_model/Semantic_Segmentation/Mask2Former_Swin_Large/Mask2Former_swin_large_w12_3x_c0d3c9.pth"
   SWIN:
     EMBED_DIM: 192
     DEPTHS: [2, 2, 18, 2]

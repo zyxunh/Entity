@@ -14,7 +14,7 @@ MODEL:
   PIXEL_MEAN: [123.675, 116.28, 103.53]
   PIXEL_STD: [58.395, 57.120, 57.375]
   META_ARCHITECTURE: "MaskFormer"
-  WEIGHTS: "/data/yixing/model/entity_seg/Mask2Former_hornet_3x_576d0b.pth"
+  WEIGHTS: "/home/yixing/model/Adobe_EntitySeg/CropFormer_model/Entity_Segmentation/Mask2Former_hornet_3x/Mask2Former_hornet_3x_576d0b.pth"
   SEM_SEG_HEAD:
     NAME: "MaskFormerHead"
     IGNORE_VALUE: 255
@@ -53,6 +53,9 @@ MODEL:
     TEST:
       SEMANTIC_ON: False
       INSTANCE_ON: True
-      PANOPTIC_ON: False
-      OVERLAP_THRESHOLD: 0.8
-      OBJECT_MASK_THRESHOLD: 0.8
+      PANOPTIC_ON: True
+      OVERLAP_THRESHOLD: 0.6
+      OBJECT_MASK_THRESHOLD: 0.6
+
+ENTITY:
+  ENABLE: False

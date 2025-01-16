@@ -1,8 +1,8 @@
-_BASE_: Base-Mask2Former.yaml
+_BASE_: ../Base-Mask2Former.yaml
 DATASETS:
-  TRAIN: ("entityv2_entity_train_01", "entityv2_entity_train_02", "entityv2_entity_train_03")
-  TEST: ("entityv2_entity_val_all",)
-  # TEST: ("entityv2_entity_val_all_lr",)
+  TRAIN: ("custom_entity_train_lr",)
+  # TEST: ("entityv2_entity_val_all",)
+  TEST: ("custom_entityv2_entity_val_all_lr",)
 SOLVER:
   STEPS: (91575, 99414)
   MAX_ITER: 103125
@@ -10,16 +10,15 @@ MODEL:
   BACKBONE:
     NAME: "D2SwinTransformer"
   SWIN:
-    EMBED_DIM: 192
-    DEPTHS: [2, 2, 18, 2]
-    NUM_HEADS: [6, 12, 24, 48]
+    EMBED_DIM: 96
+    DEPTHS: [2, 2, 6, 2]
+    NUM_HEADS: [3, 6, 12, 24]
     WINDOW_SIZE: 7
     APE: False
     DROP_PATH_RATE: 0.3
     PATCH_NORM: True
-    PRETRAIN_IMG_SIZE: 384
   META_ARCHITECTURE: "MaskFormer"
-  WEIGHTS: "/data/yixing/model/entity_seg/Mask2Former_swin_large_w7_3x_dd4543.pth"
+  WEIGHTS: "/home/zhuyixing/model/Adobe_EntitySeg/CropFormer_model/Entity_Segmentation/Mask2Former_swin_tiny_3x/Mask2Former_swin_tiny_3x_3cacfb.pth"
   SEM_SEG_HEAD:
     NAME: "MaskFormerHead"
     IGNORE_VALUE: 255
@@ -58,7 +57,7 @@ MODEL:
     TEST:
       SEMANTIC_ON: False
       INSTANCE_ON: True
-      PANOPTIC_ON: True
+      PANOPTIC_ON: False
       OVERLAP_THRESHOLD: 0.8
       OBJECT_MASK_THRESHOLD: 0.8
 INPUT:
@@ -67,3 +66,8 @@ INPUT:
   MAX_SCALE: 2.0
   FORMAT: "RGB"
   DATASET_MAPPER_NAME: "coco_instance_lsj"
+
+SOLVER:
+  STEPS: (30525, 33138)
+  MAX_ITER: 34375
+  IMS_PER_BATCH: 4

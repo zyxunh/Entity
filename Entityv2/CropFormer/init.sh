@@ -1,0 +1,1 @@
+export PYTHONPATH=/home/zhuyixing/code/Entity/Entityv2/CropFormer/entity_api/PythonAPI:$PYTHONPATH
